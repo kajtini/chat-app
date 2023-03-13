@@ -2,8 +2,9 @@ import ChatIcon from "@mui/icons-material/Chat";
 import { signOut } from "firebase/auth";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { loggedOut, selectUser } from "../features/user/userSlice";
-import { auth } from "../firebase/config";
+import { auth, db } from "../firebase/config";
 import { Link } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 const Header = () => {
   const user = useAppSelector(selectUser);
@@ -30,12 +31,20 @@ const Header = () => {
           Sign Up
         </Link>
       ) : (
-        <button
-          className="bg-accent py-2 px-4 rounded-xl"
-          onClick={handleLogout}
-        >
-          Log Out
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            className="bg-accent py-2 px-4 rounded-xl"
+            onClick={handleLogout}
+          >
+            Log Out
+          </button>
+
+          <img
+            className="max-h-10 rounded-full"
+            src={user.photoURL}
+            alt="user image"
+          />
+        </div>
       )}
     </header>
   );
