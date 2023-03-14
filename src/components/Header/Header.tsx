@@ -1,19 +1,20 @@
 import ChatIcon from "@mui/icons-material/Chat";
 import { signOut } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { loggedOut, selectUser } from "../features/user/userSlice";
-import { auth, db } from "../firebase/config";
-import { Link } from "react-router-dom";
-import { doc, setDoc } from "firebase/firestore";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { loggedOut, selectUser } from "../../features/user/userSlice";
+import { auth } from "../../firebase/config";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
       dispatch(loggedOut());
+      navigate("/");
     } catch (error) {
       console.error(error);
     }

@@ -1,4 +1,4 @@
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import SignUpPage from "./pages/SignUpPage";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -6,7 +6,8 @@ import { auth } from "./firebase/config";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { loggedIn, selectUser } from "./features/user/userSlice";
 import { Routes, Route } from "react-router-dom";
-import Chats from "./pages/Chats";
+import Chats from "./components/Chat/Chats";
+import Chat from "./components/Chat/Chat";
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<SignUpPage />} />
           <Route path="/chats" element={<Chats />} />
+          <Route path="/chats/:id" element={<Chat />} />
         </Routes>
       </main>
     </div>

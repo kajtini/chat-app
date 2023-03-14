@@ -1,8 +1,8 @@
 import GoogleIcon from "@mui/icons-material/Google";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { loggedIn, selectUser } from "../features/user/userSlice";
-import { auth } from "../firebase/config";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { loggedIn, selectUser } from "../../features/user/userSlice";
+import { auth } from "../../firebase/config";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
