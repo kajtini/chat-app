@@ -8,8 +8,12 @@ import { Link } from "react-router-dom";
 import ChatBubble from "@mui/icons-material/ChatBubble";
 import ChatRoomExcerpt from "./ChatRoomExcerpt";
 import { ChatRoom } from "../../types/types";
+import SearchIcon from "@mui/icons-material/Search";
+import { useAppSelector } from "../../app/hooks";
+import { selectUser } from "../../features/user/userSlice";
 
 const Chats = () => {
+  const user = useAppSelector(selectUser);
   const [isOpen, setIsOpen] = useState(false);
   const [chats, setChats] = useState<Array<ChatRoom>>([]);
 
@@ -35,29 +39,22 @@ const Chats = () => {
   console.log(chats);
 
   return (
-    <>
-      <div className="flex-grow w-full p-7 flex flex-col">
-        <ul className="flex flex-col w-full">
-          {chats?.map((chat) => (
-            <ChatRoomExcerpt key={chat.id} chat={chat} />
-          ))}
-        </ul>
+    <div className="flex-grow w-full p-5 flex flex-col">
+      <form className="flex items-center rounded-lg  bg-secondary overflow-hidden py-3 px-4 mb-3">
+        <input
+          type="text"
+          placeholder="Search Chats..."
+          className="w-full focus:outline-none placeholder:text-gray"
+        />
+        <SearchIcon className="text-gray" fontSize="medium" />
+      </form>
 
-        <button
-          className=" self-end mt-auto bg-accent p-4 rounded-full"
-          onClick={openModal}
-        >
-          <AddIcon />
-        </button>
-
-        {isOpen && (
-          <>
-            <AddChatModal closeModal={closeModal} />
-            <Backdrop closeModal={closeModal} />
-          </>
-        )}
-      </div>
-    </>
+      <ul className="flex flex-col gap-3 w-full">
+        {chats?.map((chat) => (
+          <ChatRoomExcerpt key={chat.id} chat={chat} />
+        ))}
+      </ul>
+    </div>
   );
 };
 

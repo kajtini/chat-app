@@ -38,14 +38,20 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 w-full">
-      <h1 className="text-5xl font-medium">Sign Up</h1>
+      <div className="text-center">
+        <h1 className="text-6xl mb-5 leading-[1.2]">Begin Your Journey!</h1>
+        <p className="font-medium text-[#808080] max-w-[300px] mx-auto text-lg">
+          Start chatting with your friends and people around the world right
+          away.
+        </p>
+      </div>
 
       <button
-        className="rounded-xl py-3 w-full border-solid border-[1px] border-accent max-w-[220px] flex items-center gap-2 justify-center hover:bg-accent transition-all "
+        className="rounded-full py-4 w-full bg-accent max-w-[256px] flex items-center gap-2 justify-center transition-all text-primary shadow-2xl text-lg hover:scale-105"
         onClick={signUpWithGoogle}
       >
-        <GoogleIcon fontSize="small" />
-        Sign Up with google
+        <GoogleIcon fontSize="medium" />
+        Get Started
       </button>
     </div>
   );

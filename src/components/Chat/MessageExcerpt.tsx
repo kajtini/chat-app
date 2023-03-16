@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../app/hooks";
 import { selectUser } from "../../features/user/userSlice";
-import { Message } from "./Chat";
+import { Message } from "../../types/types";
 
 interface MessageExcerptProps {
   message: Message;
