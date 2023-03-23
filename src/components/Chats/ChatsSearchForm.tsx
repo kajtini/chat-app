@@ -1,14 +1,14 @@
 import SearchIcon from "@mui/icons-material/Search";
 
-interface ChatSearchFormProps {
+interface ChatsSearchFormProps {
   chatsSearch: string;
   setChatsSearch: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ChatSearchForm = ({
+const ChatsSearchForm = ({
   chatsSearch,
   setChatsSearch,
-}: ChatSearchFormProps) => {
+}: ChatsSearchFormProps) => {
   return (
     <form className="flex items-center rounded-lg  bg-secondary overflow-hidden py-3 px-4 mb-3">
       <input
@@ -23,4 +23,4 @@ const ChatSearchForm = ({
   );
 };
 
-export default ChatSearchForm;
+export default ChatsSearchForm;

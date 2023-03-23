@@ -3,7 +3,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HeaderAddButton from "./HeaderAddButton";
 import { ReactNode } from "react";
 import HeaderNavLink from "./HeaderNavLink";
-
+import { Outlet } from "react-router-dom";
 interface Page {
   id: number;
   path: string;
@@ -25,15 +25,19 @@ const Header = () => {
   ];
 
   return (
-    <header className="w-full justify-between p-5 flex items-center bg-secondary rounded-t-[2rem] shadow-2xl relative">
-      <ul className="flex justify-between w-full">
-        {pages.map((page) => (
-          <HeaderNavLink key={page.id} icon={page.icon} path={page.path} />
-        ))}
-      </ul>
+    <>
+      <Outlet />
 
-      <HeaderAddButton />
-    </header>
+      <header className="w-full justify-between p-5 flex items-center bg-secondary rounded-t-[2rem] shadow-2xl relative">
+        <ul className="flex justify-between w-full">
+          {pages.map((page) => (
+            <HeaderNavLink key={page.id} icon={page.icon} path={page.path} />
+          ))}
+        </ul>
+
+        <HeaderAddButton />
+      </header>
+    </>
   );
 };
 

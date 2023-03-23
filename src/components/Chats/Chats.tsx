@@ -3,31 +3,29 @@ import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import ChatRoomThumbnail from "./ChatRoomThumbnail";
 import { ChatRoom } from "../../types/types";
-import ChatSearchForm from "./ChatSearchForm";
+import ChatsSearchForm from "./ChatsSearchForm";
+import { useAppSelector } from "../../app/hooks";
+import { selectUser } from "../../features/user/userSlice";
+import AddChatModal from "./AddChat/AddChatModal";
+import Backdrop from "./AddChat/Backdrop";
+import { selectIsOpen } from "../../features/modal/modalSlice";
 
 const Chats = () => {
+  const user = useAppSelector(selectUser);
+  const isOpen = useAppSelector(selectIsOpen);
+
   const [chats, setChats] = useState<Array<ChatRoom>>([]);
   const [chatsSearch, setChatsSearch] = useState("");
 
   useEffect(() => {
-    const chatsRef = collection(db, "chats");
+    if (!user) return;
 
-    onSnapshot(chatsRef, (querySnapshot) => {
-      const chatsIds: Array<ChatRoom> = [];
-      querySnapshot.docs.forEach((doc) => {
-        chatsIds.push({
-          ...doc.data(),
-          id: doc.id,
-        } as ChatRoom);
-      });
-
-      setChats(chatsIds);
-    });
+    const chatsRef = collection(db, "users", user.uid, "chats");
   }, []);
 
   return (
     <div className="flex-grow w-full p-5 flex flex-col">
-      <ChatSearchForm
+      <ChatsSearchForm
         chatsSearch={chatsSearch}
         setChatsSearch={setChatsSearch}
       />
@@ -37,6 +35,13 @@ const Chats = () => {
           <ChatRoomThumbnail key={chat.id} chat={chat} />
         ))}
       </ul>
+
+      {isOpen && (
+        <>
+          <AddChatModal />
+          <Backdrop />
+        </>
+      )}
     </div>
   );
 };
