@@ -1,14 +1,12 @@
-import ChatBubble from "@mui/icons-material/ChatBubble";
-import { Link } from "react-router-dom";
 import { ChatRoom } from "../../types/types";
 
-interface ChatRoomExcerptProps {
+interface ChatRoomThumbnailProps {
   chat: ChatRoom;
 }
 
 // https://lh3.googleusercontent.com/a/AGNmyxYCTpBeGyDsE_BiQDc2jTCEsioQpK_7jd0SPe0V=s96-c
 
-const ChatRoomExcerpt = ({ chat }: ChatRoomExcerptProps) => {
+const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
   return (
     <li className="w-full px-4 py-5 bg-secondary rounded-lg shadow-sm">
       <div className="flex items-center gap-3">
@@ -29,4 +27,4 @@ const ChatRoomExcerpt = ({ chat }: ChatRoomExcerptProps) => {
   );
 };
 
-export default ChatRoomExcerpt;
+export default ChatRoomThumbnail;

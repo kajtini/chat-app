@@ -1,14 +1,15 @@
 import Header from "./components/Header/Header";
-import SignUpPage from "./components/Header/SignUpPage";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { loggedIn, selectUser } from "./features/user/userSlice";
 import { Routes, Route } from "react-router-dom";
-import Chats from "./components/Chat/Chats";
-import Chat from "./components/Chat/Chat";
+import Chats from "./components/Chats/Chats";
 import UserInfoPage from "./components/UserSection/UserInfoPage";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+import SignUp from "./components/SignUp/SignUp";
+import Home from "./components/Home/Home";
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -32,14 +33,16 @@ const App = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-black font-primary">
       <main className="flex-grow flex flex-col items-center justify-center w-full">
         <Routes>
-          <Route path="/" element={<SignUpPage />} />
-          <Route path="/chats" element={<Chats />} />
-          <Route path="/chats/:id" element={<Chat />} />
-          <Route path="/user" element={<UserInfoPage />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/chats" element={<Chats />} />
+            <Route path="/user" element={<UserInfoPage />} />
+          </Route>
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
       </main>
 
-      {user && <Header />}
+      <Header />
     </div>
   );
 };
