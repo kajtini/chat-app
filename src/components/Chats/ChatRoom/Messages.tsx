@@ -6,6 +6,8 @@ interface MessagesProps {
 }
 
 const Messages = ({ messages }: MessagesProps) => {
+  console.log(messages);
+
   return (
     <ul className="flex-grow flex flex-col justify-end p-5 items-end gap-5">
       {messages?.map((message) => (

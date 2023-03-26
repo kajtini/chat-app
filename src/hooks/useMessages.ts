@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { Message, User } from "../types/types";
 
-export const useMessages = (user: User, interlocutor: User) => {
+export const useMessages = (user: User | null, interlocutor: User | null) => {
   const [messages, setMessages] = useState<Array<Message> | null>(null);
 
   useEffect(() => {
@@ -25,6 +25,7 @@ export const useMessages = (user: User, interlocutor: User) => {
         querySnapshot.docs.map((doc) => {
           const message: Message = {
             ...doc.data(),
+            id: doc.id,
           } as Message;
 
           tempMessages.push(message);

@@ -1,7 +1,6 @@
 export interface ChatRoom {
-  title: string;
-  createdAt: { seconds: number; nanoseconds: number };
-  password: string;
+  user: User;
+  latestMessage: Message;
   id?: string;
 }
 
@@ -12,6 +11,7 @@ export interface Message {
   createdAt: { seconds: number; nanoseconds: number };
   id?: string;
 }
+
 export interface User {
   displayName: string;
   email: string;
