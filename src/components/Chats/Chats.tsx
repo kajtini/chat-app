@@ -15,19 +15,21 @@ import { selectUser } from "../../features/user/userSlice";
 import AddChatModal from "./AddChat/AddChatModal";
 import Backdrop from "./AddChat/Backdrop";
 import { selectIsOpen } from "../../features/modal/modalSlice";
-import { User } from "firebase/auth";
+import { HashLoader } from "react-spinners";
+import LoadingIcon from "../Loading/LoadingIcon";
 
 const Chats = () => {
   const user = useAppSelector(selectUser);
   const isOpen = useAppSelector(selectIsOpen);
-
   const [chats, setChats] = useState<Array<ChatRoom> | null>(null);
   const [chatsSearch, setChatsSearch] = useState("");
+  const [chatRoomsLoading, setChatRoomsLoading] = useState(false);
 
   useEffect(() => {
     const fetchChats = async () => {
       try {
         if (user) {
+          setChatRoomsLoading(true);
           const chatsRef = collection(db, "users", user.uid, "chats");
           const chatsUserIds = await getDocs(chatsRef);
           const chatsDataPromises = chatsUserIds.docs.map(async (chat) => {
@@ -40,11 +42,12 @@ const Chats = () => {
           });
 
           const chatsData = await Promise.all(chatsDataPromises);
-
           setChats(chatsData);
+          setChatRoomsLoading(false);
         }
       } catch (error) {
         console.error(error);
+        setChatRoomsLoading(false);
       }
     };
 
@@ -57,12 +60,15 @@ const Chats = () => {
         chatsSearch={chatsSearch}
         setChatsSearch={setChatsSearch}
       />
+      <LoadingIcon loading={chatRoomsLoading} size={70} />
 
-      <ul className="flex flex-col gap-3 w-full">
-        {chats?.map((chat) => (
-          <ChatRoomThumbnail key={chat.user.uid} chat={chat} />
-        ))}
-      </ul>
+      {!chatRoomsLoading && (
+        <ul className="flex flex-col gap-3 w-full">
+          {chats?.map((chat) => (
+            <ChatRoomThumbnail key={chat.user.uid} chat={chat} />
+          ))}
+        </ul>
+      )}
 
       {isOpen && (
         <>

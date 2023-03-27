@@ -4,10 +4,11 @@ import { useUsers } from "../../../hooks/useUsers";
 import UserThumbnail from "./UserThumbnail";
 import { useAppSelector } from "../../../app/hooks";
 import { selectUser } from "../../../features/user/userSlice";
+import LoadingIcon from "../../Loading/LoadingIcon";
 
 const AddChatModal = () => {
   const user = useAppSelector(selectUser);
-  const users = useUsers();
+  const { users, usersLoading } = useUsers();
 
   const filteredUsers = users?.filter(
     (currentUser) => currentUser.uid !== user?.uid
@@ -18,11 +19,15 @@ const AddChatModal = () => {
       <AddChatTitle />
       <SearchUserForm />
 
-      <ul className="w-full flex flex-col gap-4">
-        {filteredUsers?.map((user) => (
-          <UserThumbnail key={user.uid} user={user} />
-        ))}
-      </ul>
+      <LoadingIcon loading={usersLoading} size={50} />
+
+      {!usersLoading && (
+        <ul className="w-full flex flex-col gap-4">
+          {filteredUsers?.map((user) => (
+            <UserThumbnail key={user.uid} user={user} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

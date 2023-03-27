@@ -20,6 +20,11 @@ const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
     minute: "2-digit",
   });
 
+  const latestMessageContentFormatted = `${chat.latestMessage.content.slice(
+    0,
+    20
+  )}${chat.latestMessage.content.length > 20 ? "..." : ""}`;
+
   return (
     <Link to={`/chats/${chat.user.uid}`}>
       <li className="w-full px-4 py-5 bg-secondary rounded-lg shadow-sm">
@@ -36,8 +41,8 @@ const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
               {`
             ${
               chat.latestMessage.uid === user?.uid
-                ? `You: ${chat.latestMessage.content}`
-                : chat.latestMessage.content
+                ? `You: ${latestMessageContentFormatted}`
+                : latestMessageContentFormatted
             }
            `}
             </p>

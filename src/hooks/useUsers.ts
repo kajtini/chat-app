@@ -4,11 +4,13 @@ import { db } from "../firebase/config";
 import { User } from "../types/types";
 
 export const useUsers = () => {
+  const [usersLoading, setUsersLoading] = useState(false);
   const [users, setUsers] = useState<Array<User> | null>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        setUsersLoading(true);
         const usersRef = collection(db, "users");
         const usersSnapshot = await getDocs(usersRef);
 
@@ -17,13 +19,15 @@ export const useUsers = () => {
         );
 
         setUsers(filteredUsers);
+        setUsersLoading(false);
       } catch (error) {
         console.error(error);
+        setUsersLoading(false);
       }
     };
 
     fetchUsers();
   }, []);
 
-  return users;
+  return { users, usersLoading };
 };

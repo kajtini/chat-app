@@ -16,6 +16,8 @@ const ChatRoom = () => {
   if (!id) return <div>No User Found</div>;
 
   const [message, setMessage] = useState("");
+  const [sendMessageLoading, setSendMessageLoading] = useState(false);
+
   const user = useAppSelector(selectUser);
   const interlocutor = useInterlocutor(id);
 
@@ -23,6 +25,8 @@ const ChatRoom = () => {
 
   const handleSendMessage = async (content: string) => {
     if (user && interlocutor) {
+      setSendMessageLoading(true);
+
       const messagesRef = collection(
         db,
         "users",
@@ -54,11 +58,14 @@ const ChatRoom = () => {
       ]);
 
       setMessage("");
+
+      setSendMessageLoading(false);
     }
 
     try {
     } catch (error) {
       console.error(error);
+      setSendMessageLoading(false);
     }
   };
 
@@ -107,6 +114,7 @@ const ChatRoom = () => {
             handleSendMessage={handleSendMessage}
             message={message}
             setMessage={setMessage}
+            sendMessageLoading={sendMessageLoading}
           />
         </div>
       )}
