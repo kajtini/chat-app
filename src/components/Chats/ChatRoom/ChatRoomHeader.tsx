@@ -14,11 +14,11 @@ const ChatRoomHeader = ({ interlocutor }: ChatRoomHeaderProps) => {
           <WestIcon />
         </Link>
         <img
-          className="max-h-11 rounded-full"
+          className="max-h-11 lg:max-h-14 rounded-full"
           src={interlocutor.photoURL}
           alt="user image"
         />
-        <p className="font-bold">{interlocutor.displayName}</p>
+        <p className="lg:text-lg font-bold">{interlocutor.displayName}</p>
       </div>
     </div>
   );

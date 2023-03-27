@@ -8,14 +8,14 @@ const UserHeaderInfo = () => {
   return (
     <div className="flex items-center gap-5  justify-center">
       <img
-        className="rounded-full max-h-14"
+        className="rounded-full max-h-11 lg:max-h-14"
         src={user?.photoURL}
         alt="user image"
       />
 
       <div>
-        <p className="text-xl font-bold">{user?.displayName}</p>
-        <p className="text-gray text-sm">{user?.email}</p>
+        <p className="text-xl lg:text-2xl font-bold">{user?.displayName}</p>
+        <p className="text-gray text-sm lg:text-base">{user?.email}</p>
       </div>
     </div>
   );

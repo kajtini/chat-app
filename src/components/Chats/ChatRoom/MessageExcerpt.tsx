@@ -16,15 +16,17 @@ const MessageExcerpt = ({ message }: MessageExcerptProps) => {
       }`}
     >
       <div
-        className={`bg-secondary self-stretch py-3 px-5 shadow-md rounded-lg flex flex-col justify-center ${
-          message.uid !== user?.uid && "order-1"
+        className={` self-stretch  py-3 px-5 shadow-md rounded-lg flex flex-col justify-center ${
+          message.uid !== user?.uid
+            ? "order-1 bg-secondary"
+            : "bg-active bg-opacity-70"
         }`}
       >
-        <p>{message.content}</p>
+        <p className="lg:text-lg">{message.content}</p>
       </div>
 
       <img
-        className="max-h-11 rounded-full"
+        className="max-h-11 lg:max-h-14 rounded-full"
         src={message.photoURL}
         alt="user image"
       />

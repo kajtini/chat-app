@@ -9,7 +9,7 @@ const SignUpGetStartedBtn = ({
 }: SignUpGetStartedBtnProps) => {
   return (
     <button
-      className="rounded-full py-4 w-full bg-accent max-w-[256px] flex items-center gap-2 justify-center transition-all text-primary shadow-2xl text-lg hover:scale-105"
+      className="rounded-full py-4 w-full bg-accent max-w-[256px] flex items-center gap-2 justify-center transition-all text-gray-light shadow-2xl text-lg hover:scale-105"
       onClick={signUpWithGoogle}
     >
       <GoogleIcon fontSize="medium" />

@@ -10,11 +10,11 @@ const ChatsSearchForm = ({
   setChatsSearch,
 }: ChatsSearchFormProps) => {
   return (
-    <form className="flex items-center rounded-lg  bg-secondary overflow-hidden py-3 px-4 mb-3">
+    <form className="flex items-center rounded-lg  bg-secondary overflow-hidden py-3 lg:py-5 lg:px-6 px-4 mb-3">
       <input
         type="text"
         placeholder="Search Chats..."
-        className="w-full focus:outline-none placeholder:text-gray"
+        className="w-full focus:outline-none placeholder:text-gray bg-secondary"
         value={chatsSearch}
         onChange={(e) => setChatsSearch(e.target.value)}
       />

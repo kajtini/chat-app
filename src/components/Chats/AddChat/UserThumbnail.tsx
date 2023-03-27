@@ -14,12 +14,12 @@ const UserThumbnail = ({ user }: UserThumbnailProps) => {
     <Link to={`/chats/${user.uid}`} onClick={() => dispatch(modalClosed())}>
       <li className="flex items-center gap-5 bg-secondary p-3 rounded-lg shadow-sm cursor-pointer">
         <img
-          className="max-h-11 rounded-full"
+          className="max-h-11 lg:max-h-14  rounded-full"
           src={user.photoURL}
           alt="user image"
         />
 
-        <p>{user.displayName}</p>
+        <p className="lg:text-lg">{user.displayName}</p>
       </li>
     </Link>
   );

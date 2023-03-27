@@ -1,9 +1,7 @@
+import { Navigate } from "react-router-dom";
+
 const Home = () => {
-  return (
-    <div className="flex-grow flex flex-col items-center justify-center">
-      Home
-    </div>
-  );
+  return <Navigate to="/chats" />;
 };
 
 export default Home;

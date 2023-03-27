@@ -30,14 +30,16 @@ const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
       <li className="w-full px-4 py-5 bg-secondary rounded-lg shadow-sm">
         <div className="flex items-center gap-3">
           <img
-            className="max-h-11 rounded-full"
+            className="max-h-11 lg:max-h-14 rounded-full"
             src={chat.user.photoURL}
             alt="user image"
           />
 
           <div>
-            <p className="text-sm font-bold">{chat.user.displayName}</p>
-            <p className="text-sm text-gray ">
+            <p className="text-sm lg:text-base font-bold">
+              {chat.user.displayName}
+            </p>
+            <p className="text-sm lg:text-base text-gray ">
               {`
             ${
               chat.latestMessage.uid === user?.uid
@@ -48,7 +50,7 @@ const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
             </p>
           </div>
 
-          <p className="text-gray text-sm self-start ml-auto">
+          <p className="text-gray text-sm self-start ml-auto lg:text-base">
             {latestMessageDateConverted}
           </p>
         </div>

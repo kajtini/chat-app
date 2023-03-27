@@ -15,7 +15,7 @@ const AddChatModal = () => {
   );
 
   return (
-    <div className="z-[2] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-full max-w-xs px-5 py-8 rounded-lg flex flex-col items-center justify-center gap-4">
+    <div className="z-[2] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary w-full max-w-xs sm:max-w-sm lg:max-w-md px-5 py-8 rounded-lg flex flex-col items-center justify-center gap-4">
       <AddChatTitle />
       <SearchUserForm />
 

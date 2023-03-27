@@ -1,4 +1,5 @@
 import SendIcon from "@mui/icons-material/Send";
+import { useRef, useEffect } from "react";
 
 interface SendMessageFormProps {
   handleSendMessage: (content: string) => void;
@@ -14,6 +15,16 @@ const SendMessageForm = ({
   sendMessageLoading,
 }: SendMessageFormProps) => {
   const canSend = Boolean(message);
+  const messageInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!sendMessageLoading) {
+      if (messageInputRef.current) {
+        console.log(12);
+        messageInputRef.current.focus();
+      }
+    }
+  }, [sendMessageLoading]);
 
   return (
     <form
@@ -25,14 +36,15 @@ const SendMessageForm = ({
     >
       <input
         placeholder="Message..."
-        className="focus:outline-none placeholder:text-gray p-3 bg-secondary rounded-xl shadow-md flex-grow"
+        className="focus:outline-none placeholder:text-gray p-3 bg-secondary rounded-xl shadow-md w-full lg:p-5 lg:text-lg"
         disabled={sendMessageLoading ? true : false}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        ref={messageInputRef}
       />
 
       <button
-        className="bg-accent self-stretch rounded-full px-3 disabled:bg-gray transition-all"
+        className="bg-accent self-stretch rounded-full px-3 disabled:bg-gray transition-all w-full max-w-[100px] lg:max-w-[150px]"
         disabled={!sendMessageLoading && canSend ? false : true}
       >
         <SendIcon sx={{ color: "white" }} />

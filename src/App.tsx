@@ -30,8 +30,8 @@ const App = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-black font-primary">
-      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-[1200px]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-primary text-gray-light font-primary">
+      <main className="flex-grow flex flex-col items-center justify-center w-full max-w-[1000px]">
         <Routes>
           <Route element={<ProtectedRoutes />}>
             <Route element={<Header />}>
