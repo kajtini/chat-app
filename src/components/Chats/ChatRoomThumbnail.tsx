@@ -10,20 +10,43 @@ interface ChatRoomThumbnailProps {
 const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
   const user = useAppSelector(selectUser);
 
-  const latestMessageDate = new Date(
-    chat.latestMessage.createdAt.seconds * 1000 +
-      chat.latestMessage.createdAt.nanoseconds / 1000000
-  );
+  console.log(chat);
 
-  const latestMessageDateConverted = latestMessageDate.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const convertFirstToUpperCase = (text: string) =>
+    text.slice(0, 1).toUpperCase().concat(text.slice(1));
+
+  const convertLatestMessageDate = (messageTimestamp: {
+    seconds: number;
+    nanoseconds: number;
+  }) => {
+    const now = new Date();
+    const messageDate = new Date(
+      messageTimestamp.seconds * 1000 + messageTimestamp.nanoseconds / 1000000
+    );
+    const oneDayMs = 24 * 60 * 60 * 1000;
+
+    if (now.getTime() - messageDate.getTime() > oneDayMs) {
+      const month = messageDate.toLocaleString("default", {
+        month: "short",
+      });
+      const day = messageDate.getDate();
+      return `${convertFirstToUpperCase(month)} ${day}`;
+    } else {
+      return messageDate.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    }
+  };
 
   const latestMessageContentFormatted = `${chat.latestMessage.content.slice(
     0,
     20
   )}${chat.latestMessage.content.length > 20 ? "..." : ""}`;
+
+  const latestMessageDateConverted = convertLatestMessageDate(
+    chat.latestMessage.createdAt
+  );
 
   return (
     <Link to={`/chats/${chat.user.uid}`}>

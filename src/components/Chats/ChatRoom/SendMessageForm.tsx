@@ -20,7 +20,6 @@ const SendMessageForm = ({
   useEffect(() => {
     if (!sendMessageLoading) {
       if (messageInputRef.current) {
-        console.log(12);
         messageInputRef.current.focus();
       }
     }

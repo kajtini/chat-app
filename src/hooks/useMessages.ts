@@ -1,4 +1,12 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { Message, User } from "../types/types";
@@ -19,7 +27,7 @@ export const useMessages = (user: User | null, interlocutor: User | null) => {
 
       const chatRoomQuery = query(chatRoomRef, orderBy("createdAt"));
 
-      onSnapshot(chatRoomQuery, (querySnapshot) => {
+      const unsubscribe = onSnapshot(chatRoomQuery, (querySnapshot) => {
         const tempMessages: Array<Message> = [];
 
         querySnapshot.docs.map((doc) => {
@@ -33,6 +41,8 @@ export const useMessages = (user: User | null, interlocutor: User | null) => {
 
         setMessages(tempMessages);
       });
+
+      return () => unsubscribe();
     }
   }, [user, interlocutor]);
 

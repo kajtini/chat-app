@@ -5,24 +5,24 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  orderBy,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import ChatRoomThumbnail from "./ChatRoomThumbnail";
 import { ChatRoom } from "../../types/types";
-import ChatsSearchForm from "./ChatsSearchForm";
 import { useAppSelector } from "../../app/hooks";
 import { selectUser } from "../../features/user/userSlice";
 import AddChatModal from "./AddChat/AddChatModal";
 import Backdrop from "./AddChat/Backdrop";
 import { selectIsOpen } from "../../features/modal/modalSlice";
-import { HashLoader } from "react-spinners";
 import LoadingIcon from "../Loading/LoadingIcon";
 
 const Chats = () => {
   const user = useAppSelector(selectUser);
   const isOpen = useAppSelector(selectIsOpen);
   const [chats, setChats] = useState<Array<ChatRoom> | null>(null);
-  const [chatsSearch, setChatsSearch] = useState("");
   const [chatRoomsLoading, setChatRoomsLoading] = useState(false);
 
   useEffect(() => {
@@ -30,8 +30,11 @@ const Chats = () => {
       try {
         if (user) {
           setChatRoomsLoading(true);
-          const chatsRef = collection(db, "users", user.uid, "chats");
-          const chatsUserIds = await getDocs(chatsRef);
+          const chatsQuery = query(
+            collection(db, "users", user.uid, "chats"),
+            orderBy("latestMessage.createdAt", "desc")
+          );
+          const chatsUserIds = await getDocs(chatsQuery);
           const chatsDataPromises = chatsUserIds.docs.map(async (chat) => {
             const chatUser = await getDoc(doc(db, "users", chat.id));
 
@@ -56,10 +59,7 @@ const Chats = () => {
 
   return (
     <div className="flex-grow w-full p-5 flex flex-col">
-      <ChatsSearchForm
-        chatsSearch={chatsSearch}
-        setChatsSearch={setChatsSearch}
-      />
+      <h2 className="text-3xl sm:text-5xl mb-5">Your Chats</h2>
       <LoadingIcon loading={chatRoomsLoading} size={70} />
 
       {!chatRoomsLoading && (
