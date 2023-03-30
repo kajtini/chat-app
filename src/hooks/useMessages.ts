@@ -1,12 +1,4 @@
-import {
-  collection,
-  doc,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/config";
 import { Message, User } from "../types/types";

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { selectUser } from "../../features/user/userSlice";
-import { ChatRoom, User } from "../../types/types";
+import { ChatRoom } from "../../types/types";
 
 interface ChatRoomThumbnailProps {
   chat: ChatRoom;
@@ -10,18 +10,16 @@ interface ChatRoomThumbnailProps {
 const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
   const user = useAppSelector(selectUser);
 
-  console.log(chat);
-
-  const convertFirstToUpperCase = (text: string) =>
-    text.slice(0, 1).toUpperCase().concat(text.slice(1));
-
-  const convertLatestMessageDate = (messageTimestamp: {
+  const convertTimestamp = (timestamp: {
     seconds: number;
     nanoseconds: number;
   }) => {
+    const convertFirstToUpperCase = (text: string) =>
+      text.slice(0, 1).toUpperCase().concat(text.slice(1));
+
     const now = new Date();
     const messageDate = new Date(
-      messageTimestamp.seconds * 1000 + messageTimestamp.nanoseconds / 1000000
+      timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
     );
     const oneDayMs = 24 * 60 * 60 * 1000;
 
@@ -39,14 +37,13 @@ const ChatRoomThumbnail = ({ chat }: ChatRoomThumbnailProps) => {
     }
   };
 
+  const latestMessageDateConverted = convertTimestamp(
+    chat.latestMessage.createdAt
+  );
   const latestMessageContentFormatted = `${chat.latestMessage.content.slice(
     0,
     20
   )}${chat.latestMessage.content.length > 20 ? "..." : ""}`;
-
-  const latestMessageDateConverted = convertLatestMessageDate(
-    chat.latestMessage.createdAt
-  );
 
   return (
     <Link to={`/chats/${chat.user.uid}`}>
