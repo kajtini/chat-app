@@ -18,7 +18,6 @@ import AddChatModal from "./AddChat/AddChatModal";
 import Backdrop from "./AddChat/Backdrop";
 import { selectIsOpen } from "../../features/modal/modalSlice";
 import LoadingIcon from "../Loading/LoadingIcon";
-import RefreshIcon from "@mui/icons-material/Refresh";
 import ChatsHeader from "./ChatsHeader";
 
 const Chats = () => {
